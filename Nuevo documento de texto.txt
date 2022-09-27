@@ -1,0 +1,42 @@
+#include <ArduinoJson.hpp>
+#include <ArduinoJson.h>
+
+void SerializeComplex()
+{
+    String json;
+    StaticJsonDocument<300> doc;
+
+    JsonArray programa = doc.createNestedArray("programa");
+   
+    JsonObject obj = programa.createNestedObject();
+    obj["base"] = 90;
+    obj["hombro"] = 90;
+    obj["codo"] = 90;
+    obj["muñeca"] = 90;
+    obj["palma"] = 90;
+    obj["dedo"] = 90;
+
+    JsonObject obj1 = programa.createNestedObject();
+    obj1["base"] = 90;
+    obj1["hombro"] = 90;
+    obj1["codo"] = 90;
+    obj1["muñeca"] = 90;
+    obj1["palma"] = 90;
+    obj1["dedo"] = 90;
+     
+
+    serializeJson(doc, json);
+    Serial.println(json);
+}
+
+
+void setup()
+{
+    Serial.begin(9600);
+    SerializeComplex();
+
+}
+
+void loop()
+{
+}

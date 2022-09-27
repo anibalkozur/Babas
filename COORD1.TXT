@@ -1,0 +1,1 @@
+{"programa":[{"base":114,"hombro":66,"codo":90,"muñeca":90,"palma":90,"dedo":90},{"base":114,"hombro":66,"codo":66,"muñeca":91,"palma":90,"dedo":90},{"base":114,"hombro":66,"codo":66,"muñeca":91,"palma":85,"dedo":99}]}
