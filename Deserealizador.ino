@@ -28,7 +28,7 @@ for (JsonObject programa_item : doc["programa"].as<JsonArray>()) {
 
   
   Serial.println(programa_item_base);
-  delay(1000);
+  delay(700);
 
   ciclo1 = map(programa_item_base,0,180,ciclomin1,ciclomax1);
   servosx1.setPWM(1,0,ciclo1);

@@ -1,11 +1,3 @@
-
-
-/*Key = Read_Keypad();
- if (Key)
-   Serial.println(Key);
-   delay(200);*/
-
-
 int Read_Keypad(void)
 {
    byte Count;

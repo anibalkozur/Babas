@@ -8,13 +8,10 @@ File archivo;
 
 //metodo libreria json para lectura de datos---------------------------
 #include <ArduinoJson.h>
-
-
+//-------------------------------------------------------------
 #include <LCD.h>
 #include <LiquidCrystal_I2C.h>
-
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7); // DIR, E, RW, RS, D4, D5, D6, D7
-
 
 //Comunicacion IC2 placa servos----------------------------------------
 
@@ -87,7 +84,6 @@ int automatizacion = 0;
 char strcomandos;
 String comandos;
 int i = 1;
-//int a = "a";
 
 String json;
 
@@ -99,20 +95,15 @@ int PREVIOUS_KEY;
 void setup() {
 
   pinMode(SCL_PIN, OUTPUT);
-  pinMode(SDO_PIN, INPUT);
-
-   
+  pinMode(SDO_PIN, INPUT);  
 
   lcd.setBacklightPin(3, POSITIVE);
   lcd.setBacklight(HIGH);
-  lcd.begin(16, 2);
+  lcd.begin(16, 2);  
   lcd.clear();
 
   Serial.begin(9600);
   delay(30);
-
-  //pinMode(PULSADOR_INI, INPUT);
-  //pinMode(PULSADOR_GRAB, INPUT);
 
   Display_LCD(ANGINI1,ANGINI2,ANGINI3,ANGINI4,ANGINI5,ANGINI6);
 
@@ -131,14 +122,31 @@ void setup() {
 }
 
 void loop(){
-  
-   KEY = Read_Keypad();
-   delay(2);
 
+caract_especiales(CONT_PUL_INI,contarray);
+
+KEY = Read_Keypad();
+delay(2);
+ 
+ 
+ 
+ if (KEY == 16 && KEY != PREVIOUS_KEY && CONT_PUL_INI == 0){
+
+ if (!SD.begin(SSpin)){
+      Serial.println("fallo de inicializacion!");
+      }
+      
+      else{ 
+      Serial.println("inicalización correcta");   
+      archivo = SD.open("/");
+      printDirectory(archivo,0);
+      }
+ }
+ 
 //Crea un archivo en memoria SD coord.txt 
 //boton de inicio, creación de archivo--------------------------------------
   if (KEY == 1 && KEY != PREVIOUS_KEY && CONT_PUL_INI == 0){
-
+   
     if (!SD.begin(SSpin)){
       Serial.println("fallo de inicializacion!");
       }
@@ -178,7 +186,7 @@ void loop(){
 //boton de grabado----------------------------------------------------------   
   if(KEY == 4 && KEY != PREVIOUS_KEY && archivo && CONT_PUL_INI == 1){//solo si archivo es verdadero 
     delay(50); 
-    
+
     Serial.println("Escribiendo en archivo coord.txt");
     CONT_PUL_FIN = 1;
     
@@ -189,7 +197,7 @@ void loop(){
     arrayANGINI5[contarray] = ANGINI5;
     arrayANGINI6[contarray] = ANGINI6;
     contarray = contarray + 1;
-
+Serial.println(contarray);
     Serial.println("este es el primer paso");
     }
 //boton de lectura de tarjeta SD y grabado en variable string------------
